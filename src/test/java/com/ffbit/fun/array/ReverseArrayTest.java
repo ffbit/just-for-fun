@@ -26,6 +26,7 @@ public class ReverseArrayTest {
     @Parameters
     public static Collection<Object[]> init() {
         Object[][] data = {
+                {new int[]{}, new int[]{}},
                 {new int[]{0}, new int[]{0}},
                 {new int[]{0, 1}, new int[]{1, 0}},
                 {new int[]{0, 1, 2}, new int[]{2, 1, 0}},
