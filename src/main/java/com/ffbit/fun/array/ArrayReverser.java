@@ -8,11 +8,11 @@ import java.util.Arrays;
 public class ArrayReverser {
 
     /**
-     * Reverse an array.
+     * Reverses the order of the elements of the specified array.
      *
      * @param source
-     *            an source array which is needed to be reverted.
-     * @return a reversed copy of a given source array.
+     *            the array whose elements are to be reversed.
+     * @return a copy of specified array with the reversed order of the elements.
      */
     public int[] reverse(int[] source) {
         int[] result = copy(source);

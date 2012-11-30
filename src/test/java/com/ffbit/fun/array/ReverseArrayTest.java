@@ -2,24 +2,47 @@ package com.ffbit.fun.array;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 import static org.junit.Assert.assertArrayEquals;
 
+@RunWith(Parameterized.class)
 public class ReverseArrayTest {
 
     private ArrayReverser reverser;
-    private int[] array;
+    private int[] source;
     private int[] expected;
+
+    public ReverseArrayTest(int[] array, int[] expected) {
+        this.source = array;
+        this.expected = expected;
+    }
+
+    @Parameters
+    public static Collection<Object[]> init() {
+        Object[][] data = {
+                {new int[]{0}, new int[]{0}},
+                {new int[]{0, 1}, new int[]{1, 0}},
+                {new int[]{0, 1, 2}, new int[]{2, 1, 0}},
+                {new int[]{1, 0, -1, 2}, new int[]{2, -1, 0, 1}}
+        };
+
+        return Arrays.asList(data);
+    }
 
     @Before
     public void setUp() throws Exception {
         reverser = new ArrayReverser();
-        array = new int[]{1, 2, 3, 4, 5};
-        expected = new int[]{5, 4, 3, 2, 1};
     }
 
     @Test
     public void itShouldReverseArray() throws Exception {
-        assertArrayEquals(reverser.reverse(array), expected);
+        assertArrayEquals(reverser.reverse(source), expected);
     }
+
 }
