@@ -11,11 +11,19 @@ import org.junit.Test;
 public class CelebrityProblemTest {
 
     @Test
-    public void itShouldFindCelebrity() throws Exception {
+    public void itShouldFindTheThirdPersonAsTheCelebrity() throws Exception {
         String dataStr = "00110" + "10101" + "00000" + "01101" + "10100";
         boolean[][] matrix = convertData(dataStr);
 
         assertThat(findCelebrity(matrix), is(2));
+    }
+
+    @Test
+    public void itShouldFindTheFourthPersonAsTheCelebrity() throws Exception {
+        String dataStr = "01110" + "00011" + "10010" + "00000" + "10110";
+        boolean[][] matrix = convertData(dataStr);
+
+        assertThat(findCelebrity(matrix), is(3));
     }
 
     private int findCelebrity(boolean[][] matrix) {
