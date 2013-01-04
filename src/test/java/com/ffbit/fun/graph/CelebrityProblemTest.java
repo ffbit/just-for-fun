@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.ArrayDeque;
+import java.util.NoSuchElementException;
 import java.util.Queue;
 
 import org.junit.Test;
@@ -24,6 +25,14 @@ public class CelebrityProblemTest {
         boolean[][] matrix = convertData(dataStr);
 
         assertThat(findCelebrity(matrix), is(3));
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void itShouldNotFindTheCelebrity() throws Exception {
+        String dataStr = "01110" + "00011" + "10010" + "01100" + "10110";
+        boolean[][] matrix = convertData(dataStr);
+
+        findCelebrity(matrix);
     }
 
     private int findCelebrity(boolean[][] matrix) {
@@ -57,7 +66,7 @@ public class CelebrityProblemTest {
         for (int i = 0; i < n; i++) {
             if (i != celebrity
                     && (!matrix[i][celebrity] || matrix[celebrity][i])) {
-                return -1;
+                throw new NoSuchElementException("There is not any celebrity.");
             }
         }
 
