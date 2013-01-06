@@ -29,6 +29,7 @@ public class PermutationTest {
                 { new int[] { 1, 0 }, true }, //
                 { new int[] { 1, 4, 3, 0, 2, 5 }, true }, //
                 { new int[] { 1, 1, 4, 4, 4, 0, 0, 3, 0, 2, 5 }, false }, //
+                { new int[] { 0, 3, 1 }, false }, //
                 { new int[] { 2 }, false }, //
                 { new int[] { -1 }, false }, //
         };
