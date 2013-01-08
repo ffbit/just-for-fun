@@ -8,14 +8,37 @@ import static org.junit.Assert.assertThat;
 public class SortedMatrixToSortedArray {
 
     @Test
-    public void testEmptyMatrix() throws Exception {
+    public void testMergeAndSortEmptyMatrix() throws Exception {
         int[][] matrix = {};
         int[] expected = {};
+
+        assertThat(mergeAndSort(matrix), is(expected));
+    }
+
+    @Test
+    public void testMergeAndSortSimpleMatrix() throws Exception {
+        int[][] matrix = {
+                {0, 1, 2},
+                {1, 2, 3},
+                {0, 3, 4}
+        };
+        int[] expected = {0, 1, 2, 3, 4};
+
         assertThat(mergeAndSort(matrix), is(expected));
     }
 
     private int[] mergeAndSort(int[][] matrix) {
-        return new int[]{};
+        if (matrix.length == 0) {
+            return new int[]{};
+        }
+
+        int[] result = matrix[0];
+
+        for (int i = 1; i < matrix.length; i++) {
+            result = mergeAndSort(result, matrix[i]);
+        }
+
+        return result;
     }
 
     @Test
