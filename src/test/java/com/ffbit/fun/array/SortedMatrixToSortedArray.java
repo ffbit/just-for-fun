@@ -27,8 +27,36 @@ public class SortedMatrixToSortedArray {
         assertThat(mergeAndSort(x, y), is(expected));
     }
 
+    @Test
+    public void testMergeTwoSortedArrays() throws Exception {
+        int[] x = {0, 1};
+        int[] y = {1, 2};
+        int[] expected = {0, 1, 2};
+
+        assertThat(mergeAndSort(x, y), is(expected));
+    }
+
     private int[] mergeAndSort(int[] x, int[] y) {
-        return new int[]{};
+        int n = findDistinctLength(x, y);
+        int[] result = new int[n];
+
+        for (int k = 0, i = 0, j = 0; k < n; k++) {
+            if (i == x.length) {
+                result[k] = y[j++];
+            } else if (j == y.length) {
+                result[k] = x[i++];
+            } else if (x[i] < y[j]) {
+                result[k] = x[i++];
+            } else if (x[i] > y[j]) {
+                result[k] = y[j++];
+            } else {
+                result[k] = x[i];
+                i++;
+                j++;
+            }
+        }
+
+        return result;
     }
 
     @Test
