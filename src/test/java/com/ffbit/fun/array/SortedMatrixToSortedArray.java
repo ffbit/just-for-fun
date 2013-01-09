@@ -21,14 +21,10 @@ public class SortedMatrixToSortedArray {
     }
 
     private static int[] mergeAndSort(int[][] matrix) {
-        if (matrix.length == 0) {
-            return new int[]{};
-        }
+        int[] result = new int[]{};
 
-        int[] result = matrix[0];
-
-        for (int i = 1; i < matrix.length; i++) {
-            result = mergeAndSort(result, matrix[i]);
+        for (int[] row : matrix) {
+            result = mergeAndSort(result, row);
         }
 
         return result;
