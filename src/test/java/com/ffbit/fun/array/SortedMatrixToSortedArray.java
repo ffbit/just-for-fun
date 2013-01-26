@@ -107,6 +107,16 @@ public class SortedMatrixToSortedArray {
 
     private int[] mergeAndSort(int[] x, int[] y) {
         int n = findDistinctLength(x, y);
+
+        // Check if one array consists another
+        if (n == Math.max(x.length, y.length)) {
+            if (n == x.length) {
+                return x;
+            }
+
+            return y;
+        }
+
         int[] result = new int[n];
 
         for (int k = 0, i = 0, j = 0; k < n; k++) {
