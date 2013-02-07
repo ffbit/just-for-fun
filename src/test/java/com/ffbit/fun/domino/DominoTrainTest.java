@@ -8,13 +8,14 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class DominoTrainTest {
 
     @Test
     public void test() throws Exception {
-        HashMap<Integer, ArrayList<Integer>> graph = buildGraph(getInput());
+        Map<Integer, List<Integer>> graph = buildGraph(getInput());
 
         println(graph);
         buildTrain(graph.keySet(), graph, new LinkedList<Integer>());
@@ -22,42 +23,36 @@ public class DominoTrainTest {
 
     }
 
-    private void buildTrain(Set<Integer> startVertexes, HashMap<Integer, ArrayList<Integer>> graph, List<Integer> train) {
+    private void buildTrain(Set<Integer> startVertexes, Map<Integer, List<Integer>> graph, List<Integer> train) {
         for (Integer start : startVertexes) {
-            List<Integer> localTrain = new LinkedList<Integer>(train);
-            localTrain.add(start);
+            List<Integer> commonTrain = new LinkedList<Integer>(train);
+            commonTrain.add(start);
 
             for (Integer end : graph.get(start)) {
-                List<Integer> localTrain2 = new LinkedList<Integer>(localTrain);
-                // ArrayList<int[]> localTrain = new ArrayList<int[]>(train);
-                localTrain2.add(end);
-                println("localTrain" + localTrain);
-                println(localTrain2);
-                println(start + "->" + end);
-                HashMap<Integer, ArrayList<Integer>> localGraph = removeDomino(graph, start, end);
+                List<Integer> localTrain = new LinkedList<Integer>(commonTrain);
+                localTrain.add(end);
+                println(localTrain);
+                Map<Integer, List<Integer>> localGraph = removeDomino(graph, start, end);
 
                 if (localGraph.containsKey(end)) {
-                    buildTrain(new HashSet<Integer>(localGraph.get(end)), localGraph, localTrain);
+                    buildTrain(new HashSet<Integer>(localGraph.get(end)), localGraph, commonTrain);
                 } else {
                     println("end");
                 }
-
-
-
             }
         }
     }
 
-    private HashMap<Integer, ArrayList<Integer>> removeDomino(HashMap<Integer, ArrayList<Integer>> graph, Integer key, Integer value) {
-        HashMap<Integer, ArrayList<Integer>> localGraph = (HashMap<Integer, ArrayList<Integer>>) graph.clone();
+    private Map<Integer, List<Integer>> removeDomino(Map<Integer, List<Integer>> graph, Integer key, Integer value) {
+        Map<Integer, List<Integer>> localGraph = new HashMap<Integer, List<Integer>>(graph);
         removeVertexes(localGraph, key, value);
         removeVertexes(localGraph, value, key);
 
         return localGraph;
     }
 
-    private void removeVertexes(HashMap<Integer, ArrayList<Integer>> graph, Integer key, Integer value) {
-        ArrayList<Integer> list = (ArrayList<Integer>) graph.get(key).clone();
+    private void removeVertexes(Map<Integer, List<Integer>> graph, Integer key, Integer value) {
+        List<Integer> list = new LinkedList<Integer>(graph.get(key));
         list.remove((Object) value);
 
         if (list.isEmpty()) {
@@ -67,8 +62,8 @@ public class DominoTrainTest {
         }
     }
 
-    private HashMap<Integer, ArrayList<Integer>> buildGraph(int[][] dominoes) {
-        HashMap<Integer, ArrayList<Integer>> graph = new HashMap<Integer, ArrayList<Integer>>();
+    private Map<Integer, List<Integer>> buildGraph(int[][] dominoes) {
+        Map<Integer, List<Integer>> graph = new HashMap<Integer, List<Integer>>();
 
         for (int[] domino : dominoes) {
             int first = domino[0];
