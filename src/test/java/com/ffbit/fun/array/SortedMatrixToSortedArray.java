@@ -74,6 +74,18 @@ public class SortedMatrixToSortedArray {
     }
 
     private int[] mergeAndSort(int[][] matrix) {
+        if (matrix.length == 0) {
+            return new int[] {};
+        }
+
+        if (matrix.length == 1) {
+            return matrix[0];
+        }
+
+        int n = matrix.length;
+
+        int[][] bufMatrix = new int[n / 2 + 1][];
+
         int[] result = new int[]{};
 
         for (int[] row : matrix) {
