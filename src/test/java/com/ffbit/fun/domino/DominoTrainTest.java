@@ -18,12 +18,12 @@ public class DominoTrainTest {
         Map<Integer, List<Integer>> graph = buildGraph(getInput());
 
         println(graph);
-        buildTrain(graph.keySet(), graph, new LinkedList<Integer>());
+        buildTrain(new LinkedList<Integer>(graph.keySet()), graph, new LinkedList<Integer>());
 
 
     }
 
-    private void buildTrain(Set<Integer> startVertexes, Map<Integer, List<Integer>> graph, List<Integer> train) {
+    private void buildTrain(List<Integer> startVertexes, Map<Integer, List<Integer>> graph, List<Integer> train) {
         for (Integer start : startVertexes) {
             List<Integer> commonTrain = new LinkedList<Integer>(train);
             commonTrain.add(start);
@@ -31,16 +31,26 @@ public class DominoTrainTest {
             for (Integer end : graph.get(start)) {
                 List<Integer> localTrain = new LinkedList<Integer>(commonTrain);
                 localTrain.add(end);
-                println(localTrain);
+
                 Map<Integer, List<Integer>> localGraph = removeDomino(graph, start, end);
 
                 if (localGraph.containsKey(end)) {
-                    buildTrain(new HashSet<Integer>(localGraph.get(end)), localGraph, commonTrain);
+                    buildTrain(localGraph.get(end), localGraph, commonTrain);
                 } else {
-                    println("end");
+                    printTrain(localTrain);
                 }
             }
         }
+    }
+
+    private void printTrain(List<Integer> train) {
+        List<String> output = new LinkedList<String>();
+
+        for (int i = 0; i < train.size() - 1; i++) {
+            output.add("[" + train.get(i) + ", " + train.get(i + 1) + "]");
+        }
+
+        println(output);
     }
 
     private Map<Integer, List<Integer>> removeDomino(Map<Integer, List<Integer>> graph, Integer key, Integer value) {
