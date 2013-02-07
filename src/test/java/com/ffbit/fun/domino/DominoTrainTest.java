@@ -5,11 +5,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class DominoTrainTest {
 
@@ -23,25 +21,22 @@ public class DominoTrainTest {
 
     private void buildTrain(Map<Integer, List<Integer>> graph) {
         for (Integer start : graph.keySet()) {
-            buildTrain(start, graph, new LinkedList<Integer>());
+            buildTrain(start, graph, new LinkedList<int[]>());
         }
     }
 
-    private void buildTrain(Integer start, Map<Integer, List<Integer>> graph, List<Integer> train) {
+    private void buildTrain(Integer start, Map<Integer, List<Integer>> graph, List<int[]> train) {
         for (Integer end : graph.get(start)) {
-            println(start + " -> " + end);
+            List<int[]> localTrain = new LinkedList<int[]>(train);
+            localTrain.add(new int[]{start, end});
 
             Map<Integer, List<Integer>> localGraph = removeDomino(graph, start, end);
 
             if (localGraph.containsKey(end)) {
-                   buildTrain(end, localGraph, train);
+                buildTrain(end, localGraph, localTrain);
             } else {
-                println("end");
+                println("end" + Arrays.deepToString(localTrain.toArray()));
             }
-
-
-
-
 
 
 //            for (Integer end : graph.get(start)) {
@@ -108,7 +103,7 @@ public class DominoTrainTest {
         return new int[][]{
                 {1, 2},
                 {2, 3},
-                // {3, 4}
+                {3, 4}
         };
     }
 
