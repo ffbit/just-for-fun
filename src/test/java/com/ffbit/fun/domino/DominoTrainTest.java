@@ -17,48 +17,47 @@ public class DominoTrainTest {
     public void test() throws Exception {
         Map<Integer, List<Integer>> graph = buildGraph(getInput());
 
-        println(graph);
-        buildTrain(new LinkedList<Integer>(graph.keySet()), graph, new LinkedList<Integer>());
-
-
+        println("original: " + graph);
+        buildTrain(graph);
     }
 
-    private void buildTrain(List<Integer> startVertexes, Map<Integer, List<Integer>> graph, List<Integer> train) {
-        for (Integer start : startVertexes) {
-            // println(start);
-            // println(graph);
+    private void buildTrain(Map<Integer, List<Integer>> graph) {
+        for (Integer start : graph.keySet()) {
+            buildTrain(start, graph, new LinkedList<Integer>());
+        }
+    }
 
-            List<Integer> commonTrain = new LinkedList<Integer>(train);
+    private void buildTrain(Integer start, Map<Integer, List<Integer>> graph, List<Integer> train) {
+        for (Integer end : graph.get(start)) {
+            println(start + " -> " + end);
 
-            List<Integer> ends = graph.get(start);
+            Map<Integer, List<Integer>> localGraph = removeDomino(graph, start, end);
 
-            if (ends.isEmpty()) {
-               continue;
+            if (localGraph.containsKey(end)) {
+                   buildTrain(end, localGraph, train);
+            } else {
+                println("end");
             }
 
-            commonTrain.add(start);
 
 
-            // println("commonTrain" + commonTrain);
-            // println("ends" + graph.get(start));
-
-            for (Integer end : graph.get(start)) {
-                List<Integer> localTrain = new LinkedList<Integer>(commonTrain);
-                localTrain.add(end);
 
 
-                Map<Integer, List<Integer>> localGraph = removeDomino(graph, start, end);
 
-                if (localGraph.containsKey(end)) {
-
-                    buildTrain(localGraph.get(end), localGraph, localTrain);
-                } else {
-                    // println("end:");
-
-                    println("end:" + localTrain);
-                    //System.exit(0);
-                }
-            }
+//            for (Integer end : graph.get(start)) {
+//                List<Integer> localTrain = new LinkedList<Integer>(train);
+//                println(start + " -> " + end);
+//                localTrain.add(start);
+//                localTrain.add(end);
+//
+//                Map<Integer, List<Integer>> localGraph = removeDomino(graph, start, end);
+//
+//                if (localGraph.containsKey(end)) {
+//                    buildTrain(localGraph.get(end), localGraph, localTrain);
+//                } else {
+//                    println("end:" + localTrain);
+//                }
+//            }
         }
     }
 
@@ -67,7 +66,7 @@ public class DominoTrainTest {
         removeVertexes(localGraph, key, value);
         removeVertexes(localGraph, value, key);
 
-        // println(localGraph + " " + key + " " + value);
+//        println(localGraph + " " + key + " " + value);
 
 
         return localGraph;
