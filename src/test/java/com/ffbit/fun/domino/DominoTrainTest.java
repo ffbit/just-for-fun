@@ -5,6 +5,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class DominoTrainTest {
@@ -14,22 +17,29 @@ public class DominoTrainTest {
         HashMap<Integer, ArrayList<Integer>> graph = buildGraph(getInput());
 
         println(graph);
-        buildTrain(graph.keySet(), graph, new ArrayList<int[]>());
+        buildTrain(graph.keySet(), graph, new LinkedList<Integer>());
 
 
     }
 
-    private void buildTrain(Set<Integer> startVertexes, HashMap<Integer, ArrayList<Integer>> graph, ArrayList<int[]> train) {
+    private void buildTrain(Set<Integer> startVertexes, HashMap<Integer, ArrayList<Integer>> graph, List<Integer> train) {
         for (Integer start : startVertexes) {
+            List<Integer> localTrain = new LinkedList<Integer>(train);
+            localTrain.add(start);
+
             for (Integer end : graph.get(start)) {
-                ArrayList<int[]> localTrain = new ArrayList<int[]>(train);
-                localTrain.add(new int[] {start, end});
-                println(Arrays.deepToString(localTrain.toArray()));
+                List<Integer> localTrain2 = new LinkedList<Integer>(localTrain);
+                // ArrayList<int[]> localTrain = new ArrayList<int[]>(train);
+                localTrain2.add(end);
+                println("localTrain" + localTrain);
+                println(localTrain2);
                 println(start + "->" + end);
                 HashMap<Integer, ArrayList<Integer>> localGraph = removeDomino(graph, start, end);
 
                 if (localGraph.containsKey(end)) {
-                    buildTrain(localGraph.get(end), localGraph, localTrain);
+                    buildTrain(new HashSet<Integer>(localGraph.get(end)), localGraph, localTrain);
+                } else {
+                    println("end");
                 }
 
 
@@ -82,7 +92,7 @@ public class DominoTrainTest {
         return new int[][]{
                 {1, 2},
                 {2, 3},
-                {3, 4}
+                // {3, 4}
         };
     }
 
