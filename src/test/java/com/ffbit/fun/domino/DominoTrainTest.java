@@ -25,38 +25,50 @@ public class DominoTrainTest {
 
     private void buildTrain(List<Integer> startVertexes, Map<Integer, List<Integer>> graph, List<Integer> train) {
         for (Integer start : startVertexes) {
+            // println(start);
+            // println(graph);
+
             List<Integer> commonTrain = new LinkedList<Integer>(train);
+
+            List<Integer> ends = graph.get(start);
+
+            if (ends.isEmpty()) {
+               continue;
+            }
+
             commonTrain.add(start);
+
+
+            // println("commonTrain" + commonTrain);
+            // println("ends" + graph.get(start));
 
             for (Integer end : graph.get(start)) {
                 List<Integer> localTrain = new LinkedList<Integer>(commonTrain);
                 localTrain.add(end);
 
+
                 Map<Integer, List<Integer>> localGraph = removeDomino(graph, start, end);
 
                 if (localGraph.containsKey(end)) {
-                    buildTrain(localGraph.get(end), localGraph, commonTrain);
+
+                    buildTrain(localGraph.get(end), localGraph, localTrain);
                 } else {
-                    printTrain(localTrain);
+                    // println("end:");
+
+                    println("end:" + localTrain);
+                    //System.exit(0);
                 }
             }
         }
-    }
-
-    private void printTrain(List<Integer> train) {
-        List<String> output = new LinkedList<String>();
-
-        for (int i = 0; i < train.size() - 1; i++) {
-            output.add("[" + train.get(i) + ", " + train.get(i + 1) + "]");
-        }
-
-        println(output);
     }
 
     private Map<Integer, List<Integer>> removeDomino(Map<Integer, List<Integer>> graph, Integer key, Integer value) {
         Map<Integer, List<Integer>> localGraph = new HashMap<Integer, List<Integer>>(graph);
         removeVertexes(localGraph, key, value);
         removeVertexes(localGraph, value, key);
+
+        // println(localGraph + " " + key + " " + value);
+
 
         return localGraph;
     }
