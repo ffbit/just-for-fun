@@ -64,25 +64,22 @@ public class DominoTest {
 
     private void buildTrain(int[][] graph, int face, int[] train, int[] maxTrain) {
         int trainLengthIndex = train.length - 1;
-        int trainLength = train[trainLengthIndex];
         int[] row = graph[face];
 
         for (int i = 0; i < row.length; i++) {
             if (row[i] != 0) {
-                // int[] localTrain = train.clone();
-                int localTrainLength = trainLength + 1;
-                train[trainLengthIndex] = localTrainLength;
-                train[localTrainLength] = i;
+                train[trainLengthIndex]++;
+                train[train[trainLengthIndex]] = i;
                 graph[face][i] = 0;
                 graph[i][face] = 0;
 
                 buildTrain(graph, i, train, maxTrain);
 
-                if (maxTrain[trainLengthIndex] < trainLength) {
+                if (maxTrain[trainLengthIndex] < train[trainLengthIndex]) {
                     System.arraycopy(train, 0, maxTrain, 0, maxTrain.length);
                 }
 
-                train[trainLength]--;
+                train[trainLengthIndex]--;
                 graph[face][i] = 1;
                 graph[i][face] = 1;
             }
