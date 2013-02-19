@@ -15,7 +15,6 @@ public class DominoTest {
         int size = maxFace + 1;
         int count = 15;
         List<int[]> dominoes = generateDominoes(maxFace, count);
-
         System.out.println("Dominoes: " + Arrays.deepToString(dominoes.toArray()));
 
         int[][] graph = new int[size][size];
@@ -34,20 +33,15 @@ public class DominoTest {
 
         printGraph(graph);
 
-        int[] emptyTrain = new int[count + 1 + 1];
-        int[] maxTrain = emptyTrain.clone();
-        int trainLengthIndex = emptyTrain.length - 1;
+        int trainLengthIndex = count + 1;
+        int[] maxTrain = new int[trainLengthIndex + 1];
 
         for (int i = 0; i < size; i++) {
             if (faces[i]) {
-                int[] train = emptyTrain.clone();
+                int[] train = new int[count + 1 + 1];
                 train[0] = i;
 
                 buildTrain(graph, i, train, maxTrain);
-
-//                if (maxTrain[trainLengthIndex] < train[trainLengthIndex]) {
-//                    maxTrain = train;
-//                }
 
                 if (maxTrain[trainLengthIndex] == count) {
                     break;
