@@ -43,11 +43,11 @@ public class DominoTest {
                 int[] train = emptyTrain.clone();
                 train[0] = i;
 
-                train = buildTrain(graph, i, train);
+                buildTrain(graph, i, train, maxTrain);
 
-                if (maxTrain[trainLengthIndex] < train[trainLengthIndex]) {
-                    maxTrain = train;
-                }
+//                if (maxTrain[trainLengthIndex] < train[trainLengthIndex]) {
+//                    maxTrain = train;
+//                }
 
                 if (maxTrain[trainLengthIndex] == count) {
                     break;
@@ -62,7 +62,7 @@ public class DominoTest {
         }
     }
 
-    private int[] buildTrain(int[][] graph, int start, int[] train) {
+    private void buildTrain(int[][] graph, int start, int[] train, int[] maxTrain) {
         int trainLengthIndex = train.length - 1;
         int trainLength = train[trainLengthIndex];
         int[] row = graph[start];
@@ -78,17 +78,16 @@ public class DominoTest {
                 graph[start][i] = 0;
                 graph[i][start] = 0;
 
-                localTrain = buildTrain(graph, i, localTrain);
+                buildTrain(graph, i, localTrain, maxTrain);
 
-                if (localMaxTrain[trainLengthIndex] < localTrain[trainLengthIndex]) {
-                    localMaxTrain = localTrain;
+                if (maxTrain[trainLengthIndex] < localTrain[trainLengthIndex]) {
+                    System.arraycopy(localTrain, 0, maxTrain, 0, maxTrain.length);
                 }
 
                 graph[start][i] = 1;
                 graph[i][start] = 1;
             }
         }
-        return localMaxTrain;
     }
 
     private void printTrain(int[] train) {
