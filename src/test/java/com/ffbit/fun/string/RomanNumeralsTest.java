@@ -22,6 +22,11 @@ public class RomanNumeralsTest {
         assertThat(romanToInt("V"), is(5));
     }
 
+    @Test
+    public void itShouldConvertXToTen() throws Exception {
+        assertThat(romanToInt("X"), is(10));
+    }
+
     private int romanToInt(String roman) {
         char[] digits = roman.toCharArray();
         int result = 0;
