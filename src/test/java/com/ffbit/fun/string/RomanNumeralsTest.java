@@ -28,6 +28,8 @@ public class RomanNumeralsTest {
                 { "V", 5 },
                 { "X", 10 },
                 { "L", 50 },
+                { "C", 100 },
+                { "M", 1000 },
 
                 { "II", 2 }
         });
@@ -43,20 +45,30 @@ public class RomanNumeralsTest {
         int result = 0;
 
         for (char digit : digits) {
+            int currentNumber = 0;
+
             switch (digit) {
             case 'I':
-                result++;
+                currentNumber = 1;
                 break;
             case 'V':
-                result += 5;
+                currentNumber = 5;
                 break;
             case 'X':
-                result += 10;
+                currentNumber = 10;
                 break;
             case 'L':
-                result += 50;
+                currentNumber = 50;
+                break;
+            case 'C':
+                currentNumber = 100;
+                break;
+            case 'M':
+                currentNumber = 1000;
                 break;
             }
+
+            result += currentNumber;
         }
 
         return result;
