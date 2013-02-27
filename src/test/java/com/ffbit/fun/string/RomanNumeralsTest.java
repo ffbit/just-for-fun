@@ -47,6 +47,9 @@ public class RomanNumeralsTest {
             case 'X':
                 result += 10;
                 break;
+            case 'L':
+                result += 50;
+                break;
             }
         }
 
