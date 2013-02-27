@@ -21,4 +21,15 @@ public class SwapTwoIntegersWithoutTheThirdOneTest {
         assertThat(y, is(2));
     }
 
+    @Test
+    public void testAdditionWay() throws Exception {
+        int x = 2;
+        int y = 3;
+
+        // algorithm's idea goes here
+
+        assertThat(x, is(3));
+        assertThat(y, is(2));
+    }
+
 }
