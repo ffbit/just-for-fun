@@ -29,6 +29,7 @@ public class RomanNumeralsTest {
                 { "X", 10 },
                 { "L", 50 },
                 { "C", 100 },
+                { "D", 500 },
                 { "M", 1000 },
 
                 { "II", 2 },
@@ -63,6 +64,9 @@ public class RomanNumeralsTest {
                 break;
             case 'C':
                 currentNumber = 100;
+                break;
+            case 'D':
+                currentNumber = 500;
                 break;
             case 'M':
                 currentNumber = 1000;
