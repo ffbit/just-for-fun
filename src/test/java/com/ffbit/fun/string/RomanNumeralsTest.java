@@ -27,6 +27,11 @@ public class RomanNumeralsTest {
         assertThat(romanToInt("X"), is(10));
     }
 
+    @Test
+    public void itShouldConvertLToFifty() throws Exception {
+        assertThat(romanToInt("L"), is(50));
+    }
+
     private int romanToInt(String roman) {
         char[] digits = roman.toCharArray();
         int result = 0;
