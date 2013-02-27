@@ -3,33 +3,39 @@ package com.ffbit.fun.string;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
+@RunWith(Parameterized.class)
 public class RomanNumeralsTest {
+    private String romanNumber;
+    private int exptectedDecimalNumber;
 
-    @Test
-    public void itShouldConvertIToOne() throws Exception {
-        assertThat(romanToInt("I"), is(1));
+    public RomanNumeralsTest(String romanNumber, int exptectedDecimalNumber) {
+        this.romanNumber = romanNumber;
+        this.exptectedDecimalNumber = exptectedDecimalNumber;
+    }
+
+    @Parameters
+    public static Collection<Object[]> init() {
+        return Arrays.asList(new Object[][] {
+                { "I", 1 },
+                { "V", 5 },
+                { "X", 10 },
+                { "L", 50 },
+
+                { "II", 2 }
+        });
     }
 
     @Test
-    public void itShouldConvertIIToTwo() throws Exception {
-        assertThat(romanToInt("II"), is(2));
-    }
-
-    @Test
-    public void itShouldConvertVToFive() throws Exception {
-        assertThat(romanToInt("V"), is(5));
-    }
-
-    @Test
-    public void itShouldConvertXToTen() throws Exception {
-        assertThat(romanToInt("X"), is(10));
-    }
-
-    @Test
-    public void itShouldConvertLToFifty() throws Exception {
-        assertThat(romanToInt("L"), is(50));
+    public void testConvertionRomanNumberToDecimal() throws Exception {
+        assertThat(romanToInt(romanNumber), is(exptectedDecimalNumber));
     }
 
     private int romanToInt(String roman) {
@@ -55,4 +61,5 @@ public class RomanNumeralsTest {
 
         return result;
     }
+
 }
