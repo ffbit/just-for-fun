@@ -17,6 +17,11 @@ public class RomanNumeralsTest {
         assertThat(romanToInt("II"), is(2));
     }
 
+    @Test
+    public void itShouldConvertVToFive() throws Exception {
+        assertThat(romanToInt("V"), is(5));
+    }
+
     private int romanToInt(String roman) {
         char[] digits = roman.toCharArray();
         int result = 0;
