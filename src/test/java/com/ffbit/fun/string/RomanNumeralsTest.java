@@ -33,7 +33,11 @@ public class RomanNumeralsTest {
                 { "M", 1000 },
 
                 { "II", 2 },
-                { "VI", 6 }
+                { "VI", 6 },
+
+                { "IV", 4 },
+                { "MMXIII", 2013 },
+                { "DCCCXLI", 841 }
         });
     }
 
