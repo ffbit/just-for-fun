@@ -1,64 +1,78 @@
 package com.ffbit.fun.array;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 import java.util.Arrays;
+import java.util.Collection;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+@RunWith(Parameterized.class)
 public class FirstOccurrenceBinarySearchTest {
+    private int[] array;
+    private int key;
+    private int expectedIndex;
 
-    public static int binarySearch(int[] a, int needle) {
-        int start = 0;
-        int end = a.length - 1;
-        int firstOccurrence = -1;
-        while (start <= end) {
-            int middle = start + (end - start) / 2;
+    public FirstOccurrenceBinarySearchTest(int[] array, int key, int expectedIndex) {
+        this.array = array;
+        this.key = key;
+        this.expectedIndex = expectedIndex;
+    }
 
-            if (a[middle] == needle) {
+    @Parameters
+    public static Collection<Object[]> init() {
+        return Arrays.asList(new Object[][] {
+                { new int[] {}, 0, -1 },
+
+                { new int[] { 1 }, 0, -1 },
+                { new int[] { 1 }, 1, 0 },
+                { new int[] { 1 }, 2, -2 },
+
+                { new int[] { 1, 2 }, 0, -1 },
+                { new int[] { 1, 2 }, 1, 0 },
+                { new int[] { 1, 2 }, 2, 1 },
+                { new int[] { 1, 2 }, 3, -3 },
+
+                { new int[] { 1, 1, 1, 1, 2, 2, 3, 3, 3 }, 1, 0 },
+                { new int[] { 1, 1, 1, 1, 2, 2, 3, 3, 3 }, 2, 4 },
+                { new int[] { 1, 1, 1, 1, 2, 2, 3, 3, 3 }, 3, 6 },
+                { new int[] { 1, 1, 1, 1, 2, 2, 3, 3, 3 }, 4, -10 }
+        });
+    }
+
+    @Test
+    public void binarySearchTest() throws Exception {
+        assertThat(firstOccurrenceBinarySearch(array, key), is(expectedIndex));
+    }
+
+    private int firstOccurrenceBinarySearch(int[] source, int needle) {
+        int low = 0;
+        int high = source.length - 1;
+        int firstOccurrence = Integer.MIN_VALUE;
+
+        while (low <= high) {
+            int middle = low + ((high - low) >>> 1);
+
+            if (source[middle] == needle) {
+                // key found and we want to search an earlier occurrence
                 firstOccurrence = middle;
-                end = middle - 1;
-            } else if (a[middle] < needle) {
-                start = middle + 1;
-            } else
-                end = middle - 1;
+                high = middle - 1;
+            } else if (source[middle] < needle) {
+                low = middle + 1;
+            } else {
+                high = middle - 1;
+            }
         }
 
-        if (firstOccurrence >= 0) {
+        if (firstOccurrence != Integer.MIN_VALUE) {
             return firstOccurrence;
         }
 
-        return -(start + 1);
-    }
-
-    public static int algorithm(int needle, int[] array) {
-        int index = binarySearch(array, needle);
-
-        if (index < 0) {
-            return -1;
-        }
-
-        int nextIndex = index + 1;
-
-
-        if (array.length <= nextIndex) {
-            return -1;
-        }
-
-        if (needle != array[nextIndex]) {
-            return -1;
-        }
-
-        return nextIndex + 1;
-    }
-
-
-    public static void main(String... args) {
-        int[] array = {1, 1, 2, 3, 3, 9, 9, 9, 17, 19, 23, 23, 23, 100};
-        System.out.println(algorithm(1, array) == 2);
-        System.out.println(algorithm(2, array) == -1);
-        System.out.println(algorithm(3, array) == 5);
-        System.out.println(algorithm(9, array) == 7);
-        System.out.println(algorithm(17, array) == -1);
-        System.out.println(algorithm(18, array) == -1);
-        System.out.println(algorithm(23, array) == 12);
-        System.out.println(Arrays.binarySearch(array, 9));
+        return -(low + 1);  // key not found
     }
 
 }
