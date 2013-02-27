@@ -31,7 +31,8 @@ public class RomanNumeralsTest {
                 { "C", 100 },
                 { "M", 1000 },
 
-                { "II", 2 }
+                { "II", 2 },
+                { "VI", 6 }
         });
     }
 
