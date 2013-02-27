@@ -41,6 +41,9 @@ public class SwapTwoIntegersWithoutTheThirdOneTest {
     @Test
     public void testXorWay() throws Exception {
         // algorithm's idea goes here
+        x = x ^ y;
+        y = x ^ y;
+        x = x ^ y;
 
         assertThat(x, is(3));
         assertThat(y, is(2));
