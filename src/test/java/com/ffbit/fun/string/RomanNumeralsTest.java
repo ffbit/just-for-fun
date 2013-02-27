@@ -30,6 +30,10 @@ public class RomanNumeralsTest {
             switch (digit) {
             case 'I':
                 result++;
+                break;
+            case 'V':
+                result += 5;
+                break;
             }
         }
 
