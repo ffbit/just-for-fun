@@ -17,8 +17,17 @@ public class RomanNumeralsTest {
         assertThat(romanToInt("II"), is(2));
     }
 
-    private int romanToInt(String string) {
-        return 1;
-    }
+    private int romanToInt(String roman) {
+        char[] digits = roman.toCharArray();
+        int result = 0;
 
+        for (char digit : digits) {
+            switch (digit) {
+            case 'I':
+                result++;
+            }
+        }
+
+        return result;
+    }
 }
