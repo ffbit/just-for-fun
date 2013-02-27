@@ -12,6 +12,11 @@ public class RomanNumeralsTest {
         assertThat(romanToInt("I"), is(1));
     }
 
+    @Test
+    public void itShouldConvertIIToTwo() throws Exception {
+        assertThat(romanToInt("II"), is(2));
+    }
+
     private int romanToInt(String string) {
         return 1;
     }
