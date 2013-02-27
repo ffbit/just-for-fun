@@ -13,7 +13,9 @@ public class SwapTwoIntegersWithoutTheThirdOneTest {
         int y = 3;
 
         // algorithm's idea goes here
-        // ...
+        x = x - y;
+        y = x + y;
+        x = y - x;
 
         assertThat(x, is(3));
         assertThat(y, is(2));
