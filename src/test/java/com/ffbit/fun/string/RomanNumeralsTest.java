@@ -13,7 +13,7 @@ public class RomanNumeralsTest {
     }
 
     private int romanToInt(String string) {
-        return 0;
+        return 1;
     }
 
 }
