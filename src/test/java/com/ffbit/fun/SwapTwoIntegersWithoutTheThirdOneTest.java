@@ -38,4 +38,11 @@ public class SwapTwoIntegersWithoutTheThirdOneTest {
         assertThat(y, is(2));
     }
 
+    @Test
+    public void testXorWay() throws Exception {
+        // algorithm's idea goes here
+
+        assertThat(x, is(3));
+        assertThat(y, is(2));
+    }
 }
