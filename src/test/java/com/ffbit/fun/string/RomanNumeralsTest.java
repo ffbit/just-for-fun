@@ -60,16 +60,20 @@ public class RomanNumeralsTest {
         for (int i = 0; i < digits.length; i++) {
             int next = romanDigitToDecimalNumber(digits[i]);
 
-            if (previous == next) {
-                count++;
-            } else if (previous > next) {
-                result += previous * count;
-                count = 1;
-            } else {
-                result -= previous * count;
-                count = 1;
+            if (previous != next) {
+                int delta = previous * count;
+
+                if (previous > next) {
+                    result += delta;
+                } else {
+                    result -= delta;
+                }
+
+                count = 0;
             }
+
             previous = next;
+            count++;
 
             if (digits.length - 1 == i) {
                 result += previous * count;
