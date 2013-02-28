@@ -45,40 +45,44 @@ public class RomanNumeralsTest {
 
     @Test
     public void testConversionRomanNumberToDecimal() throws Exception {
-        assertThat(romanToInt(romanNumber), is(exptectedDecimalNumber));
+        assertThat(romanNumberToInteger(romanNumber), is(exptectedDecimalNumber));
     }
 
-    private int romanToInt(String roman) {
-        char[] digits = roman.toCharArray();
+    @Test(expected = IllegalArgumentException.class)
+    public void itShouldThrowExceptionWhenNonRomanSymbolOccurred() throws Exception {
+        romanNumberToInteger("ABC");
+    }
 
-        if (digits.length == 0) {
+    private int romanNumberToInteger(String roman) {
+        if (roman.isEmpty()) {
             return 0;
         }
 
+        char[] digits = roman.toCharArray();
         int result = 0;
-        int count = 0;
-        int previous = romanDigitToDecimalNumber(digits[0]);
+        int previous = romanDigitToInteger(digits[0]);
+        int previousCount = 0;
 
         for (int i = 0; i < digits.length; i++) {
-            int current = romanDigitToDecimalNumber(digits[i]);
+            int current = romanDigitToInteger(digits[i]);
             result += current;
 
             if (current != previous) {
                 if (previous < current) {
-                    result -= 2 * count * previous;
+                    result -= 2 * previousCount * previous;
                 }
 
-                count = 0;
+                previousCount = 0;
             }
 
             previous = current;
-            count++;
+            previousCount++;
         }
 
         return result;
     }
 
-    private int romanDigitToDecimalNumber(char digit) {
+    private int romanDigitToInteger(char digit) {
         switch (digit) {
             case 'I':
                 return 1;
@@ -95,7 +99,7 @@ public class RomanNumeralsTest {
             case 'M':
                 return 1000;
             default:
-                return 0;
+                throw new IllegalArgumentException("Non Roman digit symbol occurred: " + digit);
         }
     }
 
