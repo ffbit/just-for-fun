@@ -48,14 +48,32 @@ public class RomanNumeralsTest {
 
     private int romanToInt(String roman) {
         char[] digits = roman.toCharArray();
+
+        if (digits.length == 0) {
+            return 0;
+        }
+
         int result = 0;
+        int count = 0;
+        int previous = romanDigitToDecimalNumber(digits[0]);
 
-        for (char digit : digits) {
-            int currentNumber = 0;
+        for (int i = 0; i < digits.length; i++) {
+            int next = romanDigitToDecimalNumber(digits[i]);
 
-            currentNumber = romanDigitToDecimalNumber(digit);
+            if (previous == next) {
+                count++;
+            } else if (previous > next) {
+                result += previous * count;
+                count = 1;
+            } else {
+                result -= previous * count;
+                count = 1;
+            }
+            previous = next;
 
-            result += currentNumber;
+            if (digits.length - 1 == i) {
+                result += previous * count;
+            }
         }
 
         return result;
