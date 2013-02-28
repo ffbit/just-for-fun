@@ -34,10 +34,12 @@ public class RomanNumeralsTest {
 
                 {"II", 2},
                 {"VI", 6},
+                {"DCCCXLI", 841},
 
                 {"IV", 4},
-                {"MMXIII", 2013},
-                {"DCCCXLI", 841}
+                {"IMM", 1999},
+                {"MCMXCIX", 1999},
+                {"MMXIII", 2013}
         });
     }
 
@@ -58,26 +60,19 @@ public class RomanNumeralsTest {
         int previous = romanDigitToDecimalNumber(digits[0]);
 
         for (int i = 0; i < digits.length; i++) {
-            int next = romanDigitToDecimalNumber(digits[i]);
+            int current = romanDigitToDecimalNumber(digits[i]);
+            result += current;
 
-            if (previous != next) {
-                int delta = previous * count;
-
-                if (previous > next) {
-                    result += delta;
-                } else {
-                    result -= delta;
+            if (current != previous) {
+                if (previous < current) {
+                    result -= 2 * count * previous;
                 }
 
                 count = 0;
             }
 
-            previous = next;
+            previous = current;
             count++;
-
-            if (digits.length - 1 == i) {
-                result += previous * count;
-            }
         }
 
         return result;
