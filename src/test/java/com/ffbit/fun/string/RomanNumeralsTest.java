@@ -11,6 +11,9 @@ import java.util.Collection;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+/**
+ * Convert Roman numerals string to an integer in O(n) time
+ */
 @RunWith(Parameterized.class)
 public class RomanNumeralsTest {
     private String romanNumber;
