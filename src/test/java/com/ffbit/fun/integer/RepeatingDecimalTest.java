@@ -21,15 +21,25 @@ public class RepeatingDecimalTest {
     }
 
     @Test
+    public void itShouldNotBeRepeatingDecimalWhenTwoNumberDivideWithoutRemainder() throws Exception {
+        assertFalse("8 divided by 2 does not produce repeating decimal", isRepeatingDecimal(8, 2));
+    }
+
+    @Test
     public void itShouldBeRepeatingDecimal() throws Exception {
         assertTrue("5 divided by 3 should produce repeating decimal", isRepeatingDecimal(5, 3));
     }
 
     private boolean isRepeatingDecimal(int dividend, int divisor) {
-        int remainder = dividend % divisor * 10;
+        int mod = dividend % divisor;
 
+        if (mod == 0) {
+            return false;
+        }
+
+        int remainder = mod * 10;
         Set<Integer> mods = new HashSet<Integer>();
-        int mod;
+        
         do {
             mod = remainder % divisor;
 
