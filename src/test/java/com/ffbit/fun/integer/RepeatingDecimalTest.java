@@ -2,7 +2,11 @@ package com.ffbit.fun.integer;
 
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Check whether result of dividing two integers produces a repeating decimal.
@@ -16,7 +20,24 @@ public class RepeatingDecimalTest {
         assertFalse("1 divided by 2 should not produce repeating decimal", isRepeatingDecimal(1, 2));
     }
 
+    @Test
+    public void itShouldBeRepeatingDecimal() throws Exception {
+        assertTrue("5 divided by 3 should produce repeating decimal", isRepeatingDecimal(5, 3));
+    }
+
     private boolean isRepeatingDecimal(int dividend, int divisor) {
+        int remainder = dividend % divisor * 10;
+
+        Set<Integer> mods = new HashSet<Integer>();
+        int mod;
+        do {
+            mod = remainder % divisor;
+
+            if (!mods.add(mod)) {
+                return true;
+            }
+        } while (mod != 0);
+
         return false;
     }
 
