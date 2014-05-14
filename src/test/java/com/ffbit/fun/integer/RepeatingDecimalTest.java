@@ -17,7 +17,7 @@ public class RepeatingDecimalTest {
 
     @Test
     public void itShouldNotBeRepeatingDecimal() throws Exception {
-        assertFalse("1 divided by 2 should not produce repeating decimal", isRepeatingDecimal(1, 2));
+        assertFalse("1 divided by 4 should not produce repeating decimal", isRepeatingDecimal(1, 4));
     }
 
     @Test
@@ -27,7 +27,7 @@ public class RepeatingDecimalTest {
 
     @Test
     public void itShouldBeRepeatingDecimal() throws Exception {
-        assertTrue("5 divided by 3 should produce repeating decimal", isRepeatingDecimal(5, 3));
+        assertTrue("1 divided by 7 should produce repeating decimal", isRepeatingDecimal(1, 7));
     }
 
     private boolean isRepeatingDecimal(int dividend, int divisor) {
@@ -39,13 +39,15 @@ public class RepeatingDecimalTest {
 
         int remainder = mod * 10;
         Set<Integer> mods = new HashSet<Integer>();
-        
+
         do {
             mod = remainder % divisor;
 
             if (!mods.add(mod)) {
                 return true;
             }
+
+            remainder = remainder * 10;
         } while (mod != 0);
 
         return false;
