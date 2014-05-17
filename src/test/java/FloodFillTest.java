@@ -8,8 +8,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Queue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
+@Ignore
 public class FloodFillTest {
 
     public static class DominoItem {
