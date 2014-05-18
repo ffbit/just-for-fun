@@ -2,16 +2,23 @@ package com.ffbit.fun.string;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.Matchers.contains;
+import static org.junit.Assert.assertThat;
+
 public class AsterisksTest {
 
     @Test
     public void testAsterisks() throws Exception {
-        asterisks("abc");
+        assertThat(asterisks("abc"), contains("abc", "ab*", "a*c", "a**", "*bc", "*b*", "**c", "***"));
     }
 
-    private void asterisks(final String origin) {
+    private List<String> asterisks(final String origin) {
         int length = origin.length();
         int number = (1 << length) - 1;
+        List<String> result = new ArrayList<String>(number);
 
         while (number >= 0) {
             char[] chars = origin.toCharArray();
@@ -23,10 +30,11 @@ public class AsterisksTest {
                 }
             }
 
-            System.out.println(new String(chars));
-
             number--;
+            result.add(new String(chars));
         }
+
+        return result;
     }
 
 }
