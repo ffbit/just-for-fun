@@ -2,6 +2,11 @@ package com.ffbit.fun.list;
 
 import org.junit.Test;
 
+import java.util.Objects;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 public class ReverseListTest {
     private class Node<E> {
         private E value;
@@ -24,6 +29,23 @@ public class ReverseListTest {
 
             return value + ", " + next.toString();
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Node that = (Node) o;
+
+            return Objects.equals(value, that.value)
+                    && Objects.equals(next, that.next);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(value, next);
+        }
+
     }
 
     @Test
@@ -32,8 +54,7 @@ public class ReverseListTest {
         list = new Node<Integer>(2, list);
         list = new Node<Integer>(3, list);
 
-        System.out.println(list);
-        System.out.println(reverse(list));
+        assertThat(reverse(list), is(new Node<>(1, new Node<>(2, new Node<>(3)))));
     }
 
     private <E> Node<E> reverse(Node<E> list) {
