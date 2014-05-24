@@ -12,13 +12,13 @@ import java.util.Collection;
 import static org.junit.Assert.assertArrayEquals;
 
 @RunWith(Parameterized.class)
-public class ReverseArrayTest {
+public class ArrayReverserTest {
 
     private ArrayReverser reverser;
     private int[] source;
     private int[] expected;
 
-    public ReverseArrayTest(int[] array, int[] expected) {
+    public ArrayReverserTest(int[] array, int[] expected) {
         this.source = array;
         this.expected = expected;
     }
