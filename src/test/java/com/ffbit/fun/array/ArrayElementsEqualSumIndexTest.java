@@ -30,25 +30,28 @@ public class ArrayElementsEqualSumIndexTest {
         assertThat(findEqualSumIndex(stack), is(-1));
     }
 
-    public int findEqualSumIndex(List<Integer> list) {
+    public int findEqualSumIndex(Integer[] array) {
         int sum = 0;
 
-        for (Integer e : list) {
+        for (int e : array) {
             sum += e;
         }
 
         int remainder = sum;
-        int index = 0;
-        for (Integer e : list) {
-            index++;
-            remainder -= e;
+
+        for (int i = 0; i < array.length; i++) {
+            remainder -= array[i];
 
             if (remainder * 2 == sum) {
-                return index;
+                return i + 1;
             }
         }
 
         return -1;
+    }
+
+    public int findEqualSumIndex(List<Integer> list) {
+        return findEqualSumIndex(list.toArray(new Integer[list.size()]));
     }
 
     private Object[] parametersForItShouldFindIndex() {
