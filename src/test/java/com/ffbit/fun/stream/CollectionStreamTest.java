@@ -25,4 +25,9 @@ public class CollectionStreamTest {
         assertThat(list.stream().filter(e -> e % 2 == 0).count(), is(2L));
     }
 
+    @Test
+    public void itShouldCollectDistinctNumbers() throws Exception {
+        assertThat(list.stream().distinct().collect(toList()), is(asList(1, 2, 3, 4, 5)));
+    }
+
 }
