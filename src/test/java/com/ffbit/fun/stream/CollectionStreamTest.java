@@ -16,8 +16,13 @@ public class CollectionStreamTest {
     private List<Integer> list = asList(1, 2, 3, 4, 5, 1);
 
     @Test
-    public void itShouldFilterEven() throws Exception {
+    public void itShouldFilterEvenNumbers() throws Exception {
         assertThat(list.stream().filter(e -> e % 2 == 0).collect(toList()), is(asList(2, 4)));
+    }
+
+    @Test
+    public void itShouldCountEvenNumbers() throws Exception {
+        assertThat(list.stream().filter(e -> e % 2 == 0).count(), is(2L));
     }
 
 }
