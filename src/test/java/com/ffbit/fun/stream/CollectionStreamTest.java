@@ -35,4 +35,9 @@ public class CollectionStreamTest {
         assertThat(list.stream().map(e -> e * 2).collect(toList()), is(asList(2, 4, 6, 8, 10, 2)));
     }
 
+    @Test
+    public void itShouldMapNumbersToStrings() throws Exception {
+        assertThat(list.stream().map(e -> String.valueOf(e)).collect(toList()), is(asList("1", "2", "3", "4", "5", "1")));
+    }
+
 }
