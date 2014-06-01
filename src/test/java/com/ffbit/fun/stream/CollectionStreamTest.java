@@ -3,6 +3,7 @@ package com.ffbit.fun.stream;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
@@ -45,6 +46,14 @@ public class CollectionStreamTest {
         List<List<Integer>> listOfLists = asList(asList(1, 2), asList(3, 4));
 
         assertThat(listOfLists.stream().flatMap(e -> e.stream()).collect(toList()), is(asList(1, 2, 3, 4)));
+    }
+
+    @Test
+    public void itShouldFindFirstEvenNumber() throws Exception {
+        Optional<Integer> firstEven = list.stream().filter(e -> e % 2 == 0).findFirst();
+
+        assertThat(firstEven.isPresent(), is(true));
+        assertThat(firstEven.get(), is(2));
     }
 
 }
