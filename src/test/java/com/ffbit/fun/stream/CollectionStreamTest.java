@@ -56,4 +56,11 @@ public class CollectionStreamTest {
         assertThat(firstEven.get(), is(2));
     }
 
+    @Test
+    public void itShouldSortStringsByTheirLengthDescending() throws Exception {
+        List<String> strings = asList("abc", "a", "ab");
+
+        assertThat(strings.stream().sorted((e1, e2) -> e2.compareTo(e1)).collect(toList()), is(asList("abc", "ab", "a")));
+    }
+
 }
