@@ -40,4 +40,11 @@ public class CollectionStreamTest {
         assertThat(list.stream().map(e -> String.valueOf(e)).collect(toList()), is(asList("1", "2", "3", "4", "5", "1")));
     }
 
+    @Test
+    public void itShouldFlatMap() throws Exception {
+        List<List<Integer>> listOfLists = asList(asList(1, 2), asList(3, 4));
+
+        assertThat(listOfLists.stream().flatMap(e -> e.stream()).collect(toList()), is(asList(1, 2, 3, 4)));
+    }
+
 }
