@@ -1,11 +1,14 @@
 package com.ffbit.fun.stream;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.contrib.java.lang.system.StandardOutputStreamLog;
 
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -61,6 +64,18 @@ public class CollectionStreamTest {
         List<String> strings = asList("abc", "a", "ab");
 
         assertThat(strings.stream().sorted((e1, e2) -> e2.compareTo(e1)).collect(toList()), is(asList("abc", "ab", "a")));
+    }
+
+    @Rule
+    public final StandardOutputStreamLog log = new StandardOutputStreamLog();
+
+    @Test
+    public void itShouldPrintAllNumbers() throws Exception {
+        List<String> strings = asList("a", "b", "c");
+
+        strings.stream().forEach(System.out::print);
+
+        assertThat(log.getLog(), is(strings.stream().collect(joining())));
     }
 
 }
