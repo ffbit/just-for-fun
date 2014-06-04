@@ -61,9 +61,10 @@ public class CollectionStreamTest {
 
     @Test
     public void itShouldSortStringsByTheirLengthDescending() throws Exception {
-        List<String> strings = asList("abc", "a", "ab");
+        List<String> strings = asList("abc", "a", "ab", "abcd");
 
-        assertThat(strings.stream().sorted((e1, e2) -> e2.compareTo(e1)).collect(toList()), is(asList("abc", "ab", "a")));
+        assertThat(strings.stream().sorted((e1, e2) -> Integer.compare(e2.length(), e1.length())).collect(toList()),
+                is(asList("abcd", "abc", "ab", "a")));
     }
 
     @Rule
