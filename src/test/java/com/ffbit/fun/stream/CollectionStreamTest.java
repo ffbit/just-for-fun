@@ -78,4 +78,13 @@ public class CollectionStreamTest {
         assertThat(log.getLog(), is(strings.stream().collect(joining())));
     }
 
+    @Test
+    public void itShouldPeekElements() throws Exception {
+        List<String> strings = asList("a", "b", "c");
+
+        strings.stream().peek(System.out::print);
+
+        assertThat(log.getLog(), is(strings.stream().collect(joining())));
+    }
+
 }
