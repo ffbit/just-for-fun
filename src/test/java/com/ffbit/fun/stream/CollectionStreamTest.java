@@ -4,12 +4,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.StandardOutputStreamLog;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.joining;
-import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -86,6 +87,19 @@ public class CollectionStreamTest {
         strings.stream().peek(e -> System.out.print(e)).collect(toList());
 
         assertThat(log.getLog(), is(strings.stream().collect(joining())));
+    }
+
+    @Test
+    public void itShouldProjectStringsToTheirCount() throws Exception {
+        List<String> strings = asList("a", "a", "b", "c", "c", "c");
+
+        Map<String, Long> aggregation = new HashMap<String, Long>() {{
+            put("a", 2L);
+            put("b", 1L);
+            put("c", 3L);
+        }};
+
+        assertThat(strings.stream().collect(groupingBy(e -> e, counting())), is(aggregation));
     }
 
 }
