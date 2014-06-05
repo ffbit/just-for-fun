@@ -102,4 +102,16 @@ public class CollectionStreamTest {
         assertThat(strings.stream().collect(groupingBy(e -> e, counting())), is(aggregation));
     }
 
+    @Test
+    public void itShouldGroupStringsByTheirLength() throws Exception {
+        List<String> strings = asList("a", "b", "c", "aa", "bb", "cc", "dd");
+
+        Map<Integer, List<String>> aggregation = new HashMap<Integer, List<String>>() {{
+            put(1, asList("a", "b", "c"));
+            put(2, asList("aa", "bb", "cc", "dd"));
+        }};
+
+        assertThat(strings.stream().collect(groupingBy(String::length, mapping(e -> e, toList()))),
+                is(aggregation));
+    }
 }
