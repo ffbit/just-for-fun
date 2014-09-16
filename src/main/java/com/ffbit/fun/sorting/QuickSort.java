@@ -1,6 +1,8 @@
 package com.ffbit.fun.sorting;
 
-public class QuickSort {
+public class QuickSort implements Sort {
+
+    @Override
     public int[] sort(int[] source) {
         quicksort(source, 0, source.length - 1);
 
@@ -51,4 +53,5 @@ public class QuickSort {
         source[i] = source[j];
         source[j] = tmp;
     }
+
 }
