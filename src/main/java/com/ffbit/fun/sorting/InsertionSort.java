@@ -1,7 +1,8 @@
 package com.ffbit.fun.sorting;
 
-public class InsertionSort {
+public class InsertionSort implements Sort {
 
+    @Override
     public int[] sort(int[] source) {
         for (int i = 1; i < source.length; i++) {
             int j = i;
