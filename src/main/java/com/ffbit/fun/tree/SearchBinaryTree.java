@@ -54,6 +54,7 @@ public class SearchBinaryTree<E extends Comparable<E>> {
     }
 
     public E[] preOrder() {
+        @SuppressWarnings("unchecked")
         E[] values = (E[]) new Comparable[size];
 
         if (!isEmpty()) {
@@ -80,6 +81,7 @@ public class SearchBinaryTree<E extends Comparable<E>> {
     }
 
     public E[] inOrder() {
+        @SuppressWarnings("unchecked")
         E[] values = (E[]) new Comparable[size];
 
         if (!isEmpty()) {
@@ -106,6 +108,7 @@ public class SearchBinaryTree<E extends Comparable<E>> {
     }
 
     public E[] postOrder() {
+        @SuppressWarnings("unchecked")
         E[] values = (E[]) new Comparable[size];
 
         if (!isEmpty()) {
